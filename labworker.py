@@ -1,8 +1,7 @@
 from flask import Blueprint, render_template
 
-labworker_bp = Blueprint('labworker', __name__, url_prefix='/lab/labworker')
+labworker_bp = Blueprint('labworker', __name__, url_prefix='/labworker')
 
-# ตัวอย่างข้อมูล lab workers
 labworkers = {
     'Alice': {'name': 'Alice', 'role': 'Chemist', 'email': 'alice@lab.com'},
     'Bob': {'name': 'Bob', 'role': 'Technician', 'email': 'bob@lab.com'},
@@ -11,7 +10,6 @@ labworkers = {
 
 @labworker_bp.route('/')
 def labworker_home():
-    # แสดงรายชื่อทั้งหมด
     return render_template('labworker.html', workers=labworkers.values())
 
 @labworker_bp.route('/<name>')
