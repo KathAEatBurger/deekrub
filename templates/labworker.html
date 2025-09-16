@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>รายละเอียดเจ้าหน้าที่</title>
+</head>
+<body>
+    <h1>ข้อมูลเจ้าหน้าที่: {{ worker.name }}</h1>
+    <ul>
+        <li>ตำแหน่ง: {{ worker.role }}</li>
+        <li>อีเมล: {{ worker.email }}</li>
+    </ul>
+    <a href="{{ url_for('labworker.labworker_home') }}">กลับไปหน้ารายชื่อเจ้าหน้าที่</a>
+</body>
+</html>

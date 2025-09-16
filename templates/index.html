@@ -1,11 +1,80 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <title>หน้าแรก</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lab Platform - หน้าแรก</title>
+  <style>
+    /* Reset และตั้งค่าพื้นฐาน */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      color: #333;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background: #fff;
+      padding: 40px 60px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 24px;
+      color: #2c3e50;
+    }
+
+    p {
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+    }
+
+    a.button-link {
+      display: inline-block;
+      background: #3498db;
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+      width: 100%;
+      max-width: 250px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    a.button-link:hover {
+      background: #2980b9;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
     <h1>ยินดีต้อนรับสู่ระบบ Lab Platform</h1>
-    <p><a href="/lab">ไปที่หน้า Lab</a></p>
+    <p>ระบบบริหารจัดการห้องแล็บ และข้อมูลสินค้าที่เกี่ยวข้องอย่างครบวงจร</p>
+
+    <a href="/lab" class="button-link">ไปที่หน้า Lab</a>
+    <a href="/lab/chem" class="button-link">Chemical Lab</a>
+    <a href="/lab/labworker" class="button-link">Lab Workers</a>
+    <a href="/product" class="button-link">Products</a>
+  </div>
 </body>
 </html>

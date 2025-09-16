@@ -1,3 +1,20 @@
-<h1>แสดงเลข Product</h1>
-<p>เลข Product ที่ได้รับ: <strong>{{ product_code }}</strong></p>
-<a href="/lab">← กลับหน้าห้องแลป</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Page</title>
+</head>
+<body>
+    <h1>รายละเอียดสินค้า</h1>
+    <p>รหัสสินค้า: {{ product_code }}</p>
+
+    {% if labworker_name %}
+        <p>เจ้าหน้าที่รับผิดชอบ: 
+            <a href="{{ labworker_url }}">{{ labworker_name }}</a>
+        </p>
+    {% else %}
+        <p>ไม่พบเจ้าหน้าที่รับผิดชอบสำหรับสินค้านี้</p>
+    {% endif %}
+
+    <a href="/">กลับหน้าหลัก</a>
+</body>
+</html>

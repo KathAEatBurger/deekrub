@@ -1,21 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Micro Lab</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f9fafb;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-align: left;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        a.back-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #3498db;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        a.back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Micro Lab</h1>
-    <p>ยินดีต้อนรับสู่ห้องแลปจุลชีววิทยา (Microbiology Lab)</p>
+    <div class="container">
+        <h1>Micro Lab</h1>
+        <p>ยินดีต้อนรับสู่ห้องแลปจุลชีววิทยา (Microbiology Lab)</p>
 
-    <h1>Micro Lab</h1>
-    <form method="POST">
-        <label>Product Number:</label>
-        <input type="text" name="product_code" required>
-        <button type="submit">Save & Show Product</button>
-    </form>
-<a href="/lab">← กลับ</a>
+        <form method="POST">
+            <label for="product_code">Product Number:</label>
+            <input type="text" id="product_code" name="product_code" required placeholder="กรอกรหัสสินค้า" />
+            <button type="submit">Save &amp; Show Product</button>
+        </form>
 
-
-    <a href="/lab">← กลับหน้าห้องแลป</a>
+        <a href="/lab" class="back-link">← กลับหน้าห้องแลป</a>
+    </div>
 </body>
 </html>

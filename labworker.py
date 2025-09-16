@@ -1,0 +1,22 @@
+from flask import Blueprint, render_template
+
+labworker_bp = Blueprint('labworker', __name__, url_prefix='/lab/labworker')
+
+# ตัวอย่างข้อมูล lab workers
+labworkers = {
+    'Alice': {'name': 'Alice', 'role': 'Chemist', 'email': 'alice@lab.com'},
+    'Bob': {'name': 'Bob', 'role': 'Technician', 'email': 'bob@lab.com'},
+    'Charlie': {'name': 'Charlie', 'role': 'Analyst', 'email': 'charlie@lab.com'}
+}
+
+@labworker_bp.route('/')
+def labworker_home():
+    # แสดงรายชื่อทั้งหมด
+    return render_template('labworker.html', workers=labworkers.values())
+
+@labworker_bp.route('/<name>')
+def show_labworker(name):
+    worker = labworkers.get(name)
+    if not worker:
+        return "ไม่พบเจ้าหน้าที่คนนี้", 404
+    return render_template('labworker_detail.html', worker=worker)

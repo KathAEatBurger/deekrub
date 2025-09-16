@@ -1,10 +1,12 @@
 from flask import Flask, render_template
 from labpage import lab_bp
 from product import product_bp
+from labworker import labworker_bp
 
 app = Flask(__name__)
 app.register_blueprint(lab_bp)
 app.register_blueprint(product_bp)
+app.register_blueprint(labworker_bp)
 
 @app.route("/")
 def home():
