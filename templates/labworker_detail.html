@@ -3,13 +3,58 @@
 <head>
     <meta charset="UTF-8" />
     <title>รายละเอียดเจ้าหน้าที่ - {{ worker.name }}</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #34495e;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #ecf0f1;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+        }
+
+        a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>ข้อมูลเจ้าหน้าที่: {{ worker.name }}</h1>
-    <ul>
-        <li>ตำแหน่ง: {{ worker.role }}</li>
-        <li>อีเมล: <a href="mailto:{{ worker.email }}">{{ worker.email }}</a></li>
-    </ul>
-    <a href="{{ url_for('labworker.labworker_home') }}">กลับไปหน้ารายชื่อเจ้าหน้าที่</a>
+    <h1>ข้อมูลเจ้าหน้าที่</h1>
+    <section>
+        <h2>{{ worker.name }}</h2>
+        <ul>
+            <li><strong>ตำแหน่ง:</strong> {{ worker.role }}</li>
+            <li><strong>อีเมล:</strong> <a href="mailto:{{ worker.email }}">{{ worker.email }}</a></li>
+        </ul>
+    </section>
+
+    <p>
+        <a href="{{ url_for('labworker.labworker_home') }}">← กลับไปหน้ารายชื่อเจ้าหน้าที่</a>
+    </p>
 </body>
 </html>
