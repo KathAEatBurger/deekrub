@@ -1,14 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-    <title>รายละเอียดเจ้าหน้าที่</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>รายชื่อเจ้าหน้าที่</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            background-color: #f9fafb;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            background-color: #ffffff;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.75rem;
+            transition: box-shadow 0.3s ease;
+        }
+        li:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2980b9;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        span.role {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+        @media (max-width: 480px) {
+            body {
+                margin: 1rem;
+                padding: 0 0.5rem;
+            }
+            li {
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>ข้อมูลเจ้าหน้าที่: {{ worker.name }}</h1>
+    <h1>รายชื่อเจ้าหน้าที่</h1>
     <ul>
-        <li>ตำแหน่ง: {{ worker.role }}</li>
-        <li>อีเมล: {{ worker.email }}</li>
+        {% for worker in workers %}
+            <li>
+                <a href="{{ url_for('labworker.show_labworker', name=worker.name) }}">
+                    {{ worker.name }}
+                </a>
+                <span class="role">{{ worker.role }}</span>
+            </li>
+        {% endfor %}
     </ul>
-    <a href="{{ url_for('labworker.labworker_home') }}">กลับไปหน้ารายชื่อเจ้าหน้าที่</a>
+    <a href="/" class="back-link">← กลับหน้าแรก</a>
 </body>
 </html>

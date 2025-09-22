@@ -1,20 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-    <title>Product Page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>รายละเอียดสินค้า</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 700px;
+            margin: 3rem auto;
+            padding: 1rem 2rem;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            font-size: 2rem;
+        }
+        p {
+            font-size: 1.1rem;
+            margin: 1rem 0;
+            line-height: 1.5;
+        }
+        a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .label {
+            font-weight: 700;
+            color: #555;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.5rem 1.2rem;
+            background-color: #2980b9;
+            color: white;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            background-color: #1c5980;
+        }
+    </style>
 </head>
 <body>
-    <h1>รายละเอียดสินค้า</h1>
-    <p>รหัสสินค้า: {{ product_code }}</p>
+    <div class="container">
+        <h1>รายละเอียดสินค้า</h1>
 
-    {% if labworker_name %}
-        <p>เจ้าหน้าที่รับผิดชอบ: 
-            <a href="{{ labworker_url }}">{{ labworker_name }}</a>
-        </p>
-    {% else %}
-        <p>ไม่พบเจ้าหน้าที่รับผิดชอบสำหรับสินค้านี้</p>
-    {% endif %}
+        <p><span class="label">รหัสสินค้า:</span> {{ product_code }}</p>
 
-    <a href="/">กลับหน้าหลัก</a>
+        {% if labworker_name %}
+            <p>
+                <span class="label">เจ้าหน้าที่รับผิดชอบ:</span>
+                <a href="{{ labworker_url }}">{{ labworker_name }}</a>
+            </p>
+        {% else %}
+            <p><em>ไม่พบเจ้าหน้าที่รับผิดชอบสำหรับสินค้านี้</em></p>
+        {% endif %}
+
+        <a href="/" class="back-link">← กลับหน้าหลัก</a>
+    </div>
 </body>
 </html>
