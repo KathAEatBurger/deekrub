@@ -1,0 +1,10 @@
+from supabase import create_client
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # โหลดค่าในไฟล์ .env
+
+SUPABASE_URL = os.getenv("https://hpvllwrsaryeyhhwlemb.supabase.co")
+SUPABASE_KEY = os.getenv("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhwdmxsd3JzYXJ5ZXloaHdsZW1iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTczMTExNDIsImV4cCI6MjA3Mjg4NzE0Mn0.q6pf_M6JYFrgS_TE3lQsq0zX4_kHIUALHj-2PlCRWDs")
+
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)

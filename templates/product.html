@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>รายละเอียดสินค้า</title>
+    <title>รายการสินค้า</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 700px;
+            max-width: 900px;
             margin: 3rem auto;
             padding: 1rem 2rem;
             background-color: #f5f7fa;
@@ -20,61 +20,154 @@
             font-weight: 700;
             font-size: 2rem;
         }
-        p {
-            font-size: 1.1rem;
-            margin: 1rem 0;
-            line-height: 1.5;
-        }
-        a {
-            color: #2980b9;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .label {
-            font-weight: 700;
-            color: #555;
-        }
-        .container {
+        table {
+            width: 100%;
+            border-collapse: collapse;
             background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
-        .back-link {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 0.5rem 1.2rem;
+        thead {
             background-color: #2980b9;
             color: white;
+        }
+        th, td {
+            padding: 0.8rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        tbody tr:hover {
+            background-color: #f1f9ff;
+        }
+        .add-btn, .home-btn, .send-btn {
+            display: inline-block;
+            margin: 1rem 1rem 2rem 0;
+            padding: 0.6rem 1.2rem;
+            background-color: #27ae60;
+            color: white;
+            text-decoration: none;
             border-radius: 6px;
             font-weight: 600;
             transition: background-color 0.3s ease;
-            text-decoration: none;
         }
-        .back-link:hover {
+        .add-btn:hover {
+            background-color: #1e8449;
+        }
+        .home-btn {
+            background-color: #2980b9;
+        }
+        .home-btn:hover {
             background-color: #1c5980;
+        }
+        .send-btn {
+            background-color: #e67e22;
+        }
+        .send-btn:hover {
+            background-color: #ca6f1e;
+        }
+        .lab-select {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            padding: 0.4rem;
+            border-radius: 5px;
+        }
+        .sent-label {
+            color: green;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>รายละเอียดสินค้า</h1>
+    <h1>รายการสินค้า</h1>
 
-        <p><span class="label">รหัสสินค้า:</span> {{ product_code }}</p>
+    <a href="{{ url_for('product.add_item') }}" class="add-btn">➕ เพิ่มสินค้า</a>
+    <a href="{{ url_for('home') }}" class="home-btn">← กลับหน้า Homepage</a>
 
-        {% if labworker_name %}
-            <p>
-                <span class="label">เจ้าหน้าที่รับผิดชอบ:</span>
-                <a href="{{ labworker_url }}">{{ labworker_name }}</a>
-            </p>
-        {% else %}
-            <p><em>ไม่พบเจ้าหน้าที่รับผิดชอบสำหรับสินค้านี้</em></p>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul style="color: red; font-weight: bold;">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
         {% endif %}
+    {% endwith %}
 
-        <a href="/" class="back-link">← กลับหน้าหลัก</a>
-    </div>
+    {% if products %}
+    <form method="POST" action="{{ url_for('product.send_to_lab') }}">
+        <table>
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="select-all"></th>
+                    <th>รหัสสินค้า</th>
+                    <th>ชื่อผู้ส่ง</th>
+                    <th>ประเภทสินค้า</th>
+                    <th>หมายเลขแล็บ</th>
+                    <th>สถานะ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in products %}
+                <tr>
+                    <td>
+                        {% if not p.get('sent') %}
+                            <input type="checkbox" class="select-item" name="selected_items" value="{{ p.code }}">
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>{{ p.code }}</td>
+                    <td>{{ p.sender }}</td>
+                    <td>{{ p.type }}</td>
+                    <td>{{ p.lab_number }}</td>
+                    <td>
+                        {% if p.get('sent') %}
+                            <span class="sent-label">✔️ ส่งแล้ว</span>
+                        {% else %}
+                            <span style="color: orange; font-weight: bold;">ยังไม่ส่ง</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <label for="lab_choice"><strong>เลือกแล็บที่ต้องการส่งไป:</strong></label>
+        <select name="lab_choice" id="lab_choice" class="lab-select" required>
+            <option value="">-- เลือกแล็บ --</option>
+            <option value="chem">แล็บเคมี</option>
+            <option value="microbio">แล็บจุลชีวะ</option>
+            <option value="physic">แล็บฟิสิกส์</option>
+        </select>
+
+        <button type="submit" class="send-btn">📤 ส่งสินค้า</button>
+    </form>
+
+    <script>
+        const selectAllCheckbox = document.getElementById('select-all');
+        const itemCheckboxes = document.querySelectorAll('.select-item');
+
+        selectAllCheckbox.addEventListener('change', function() {
+            itemCheckboxes.forEach(cb => {
+                if (!cb.disabled) cb.checked = this.checked;
+            });
+        });
+
+        itemCheckboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                if (!cb.checked) {
+                    selectAllCheckbox.checked = false;
+                } else if (Array.from(itemCheckboxes).every(i => i.checked || i.disabled)) {
+                    selectAllCheckbox.checked = true;
+                }
+            });
+        });
+    </script>
+
+    {% else %}
+        <p><em>ยังไม่มีรายการสินค้า</em></p>
+    {% endif %}
 </body>
 </html>

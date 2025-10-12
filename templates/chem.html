@@ -18,58 +18,44 @@
             padding: 30px 40px;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            max-width: 400px;
+            max-width: 900px;
             width: 100%;
-            text-align: center;
         }
         h1 {
-            margin-bottom: 15px;
+            text-align: center;
+            margin-bottom: 20px;
             color: #2c3e50;
         }
         p {
+            text-align: center;
             margin-bottom: 30px;
             font-size: 1.1rem;
         }
-        form {
+        table {
+            width: 100%;
+            border-collapse: collapse;
             margin-bottom: 20px;
         }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            text-align: left;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-        }
-        button {
+        thead {
             background-color: #3498db;
             color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
         }
-        button:hover {
-            background-color: #2980b9;
+        th, td {
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            text-align: center;
         }
-        a.back-link {
+        tbody tr:hover {
+            background-color: #f2f9ff;
+        }
+        .back-link {
             display: inline-block;
             margin-top: 10px;
             color: #3498db;
             font-weight: 600;
             text-decoration: none;
         }
-        a.back-link:hover {
+        .back-link:hover {
             text-decoration: underline;
         }
     </style>
@@ -77,13 +63,57 @@
 <body>
     <div class="container">
         <h1>Chem Lab</h1>
-        <p>ยินดีต้อนรับสู่ห้องแลปเคมี (Chemical Lab)</p>
+        <p>รายการสินค้าที่ส่งมาจากหน้า Product</p>
 
-        <form method="POST">
-            <label for="product_code">Product Number:</label>
-            <input type="text" id="product_code" name="product_code" required placeholder="กรอกรหัสสินค้า" />
-            <button type="submit">Save &amp; Show Product</button>
+        {% if products %}
+        <!-- เพิ่ม form + checkbox + ปุ่มส่ง -->
+        <form method="POST" action="{{ url_for('scientist.scientist_home') }}" enctype="multipart/form-data">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" onclick="toggleSelectAll(this)">
+                            เลือกทั้งหมด
+                        </th>
+                        <th>ลำดับ</th>
+                        <th>รหัสสินค้า</th>
+                        <th>ชื่อผู้ส่ง</th>
+                        <th>ประเภทสินค้า</th>
+                        <th>หมายเลขแล็บ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in products %}
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="selected_items" value="{{ p['code'] }}">
+                        </td>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ p['code'] }}</td>
+                        <td>{{ p['sender'] }}</td>
+                        <td>{{ p['type'] }}</td>
+                        <td>{{ p['lab_number'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <button type="submit">เตรียมแล้ว</button>
         </form>
+
+
+        <!-- JavaScript: เลือก/ไม่เลือกทั้งหมด -->
+        <script>
+        function toggleSelectAll(masterCheckbox) {
+            const checkboxes = document.querySelectorAll('input[name="selected_items"]');
+            checkboxes.forEach(cb => cb.checked = masterCheckbox.checked);
+        }
+        </script>
+
+        
+        {% else %}
+        <p><em>ยังไม่มีสินค้าที่ถูกส่งมายังแล็บนี้</em></p>
+        {% endif %}
 
         <a href="/lab" class="back-link">← กลับหน้าห้องแลป</a>
     </div>

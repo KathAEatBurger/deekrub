@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Physic Lab</title>
     <style>
+        /* (ใส่ style เดิมที่คุณมี หรือ copy จาก labchem) */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f9fafb;
@@ -18,7 +19,7 @@
             padding: 30px 40px;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            max-width: 400px;
+            max-width: 700px;
             width: 100%;
             text-align: center;
         }
@@ -26,45 +27,26 @@
             margin-bottom: 15px;
             color: #2c3e50;
         }
-        p {
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            text-align: left;
-        }
-        input[type="text"] {
+        table {
             width: 100%;
-            padding: 10px;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
-        button {
+        thead {
             background-color: #3498db;
             color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
         }
-        button:hover {
-            background-color: #2980b9;
+        th, td {
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        tbody tr:hover {
+            background-color: #f2f9ff;
         }
         a.back-link {
             display: inline-block;
-            margin-top: 10px;
+            margin-top: 15px;
             color: #3498db;
             font-weight: 600;
             text-decoration: none;
@@ -77,13 +59,33 @@
 <body>
     <div class="container">
         <h1>Physic Lab</h1>
-        <p>ยินดีต้อนรับสู่ห้องแลปฟิสิกส์ (Physic Lab)</p>
 
-        <form method="POST">
-            <label for="product_code">Product Number:</label>
-            <input type="text" id="product_code" name="product_code" required placeholder="กรอกรหัสสินค้า" />
-            <button type="submit">Save &amp; Show Product</button>
-        </form>
+        {% if products %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ลำดับ</th>
+                    <th>รหัสสินค้า</th>
+                    <th>ผู้ส่ง</th>
+                    <th>ประเภทสินค้า</th>
+                    <th>ห้องแลป</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ product.code }}</td>
+                    <td>{{ product.sender }}</td>
+                    <td>{{ product.type }}</td>
+                    <td>{{ product.lab_number }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p><em>ยังไม่มีสินค้าบันทึกไว้สำหรับแล็บนี้</em></p>
+        {% endif %}
 
         <a href="/lab" class="back-link">← กลับหน้าห้องแลป</a>
     </div>

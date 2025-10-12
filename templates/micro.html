@@ -5,13 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Micro Lab</title>
     <style>
-        /* Reset เบื้องต้น */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f9fafb;
@@ -20,56 +13,49 @@
             display: flex;
             justify-content: center;
         }
-
         .container {
-            max-width: 600px;
+            max-width: 900px;
             width: 100%;
             background: white;
             border-radius: 10px;
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
             padding: 30px 40px;
         }
-
         h1 {
             font-size: 2.2rem;
             margin-bottom: 20px;
             color: #2c3e50;
             text-align: center;
         }
-
-        h2 {
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: #34495e;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 5px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
         }
-
-        ul.products-list {
-            list-style-type: disc;
-            padding-left: 20px;
-            color: #555;
+        thead {
+            background-color: #3498db;
+            color: white;
         }
-
-        ul.products-list li {
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+        th, td {
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            text-align: center;
         }
-
+        tbody tr:hover {
+            background-color: #f2f9ff;
+        }
         form {
             margin-top: 20px;
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-
         input[type="file"] {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 6px;
             font-size: 1rem;
         }
-
         button {
             background-color: #3498db;
             color: white;
@@ -80,17 +66,14 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-
         button:hover {
             background-color: #2980b9;
         }
-
         ul.flash-messages {
             margin-top: 20px;
             list-style: none;
             padding-left: 0;
         }
-
         ul.flash-messages li {
             background-color: #d4edda;
             color: #155724;
@@ -100,7 +83,6 @@
             border: 1px solid #c3e6cb;
             font-weight: 600;
         }
-
         /* Responsive */
         @media (max-width: 640px) {
             .container {
@@ -113,18 +95,40 @@
     <div class="container">
         <h1>Micro Lab</h1>
 
-        <h2>สินค้า</h2>
-        <ul class="products-list">
-            {% for product in products %}
-                <li>{{ product }}</li>
-            {% endfor %}
-        </ul>
+        <h2>รายการสินค้า</h2>
 
-        <h2>อัปโหลดไฟล์</h2>
+        {% if products %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ลำดับ</th>
+                    <th>รหัสสินค้า</th>
+                    <th>ชื่อผู้ส่ง</th>
+                    <th>ประเภทสินค้า</th>
+                    <th>หมายเลขแล็บ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ product.code }}</td>
+                    <td>{{ product.sender }}</td>
+                    <td>{{ product.type }}</td>
+                    <td>{{ product.lab_number }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p><em>ยังไม่มีสินค้าที่ถูกส่งมายังแล็บนี้</em></p>
+        {% endif %}
+
+        <!--<h2>อัปโหลดไฟล์</h2>
         <form action="{{ url_for('micro.micro_home') }}" method="post" enctype="multipart/form-data">
             <input type="file" name="file" required />
             <button type="submit">อัปโหลด</button>
-        </form>
+        </form>-->
 
         <a href="/lab" class="back-link">← กลับหน้าห้องแลป</a>
 

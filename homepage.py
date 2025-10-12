@@ -4,6 +4,8 @@ from product import product_bp
 from labworker import labworker_bp
 from labmicro import micro_bp
 from labchem import chem_bp
+from labphysic import physic_bp
+from scientist import scientist_bp
 
 app = Flask(__name__)
 app.secret_key = 'my_super_secret_key_12345'
@@ -13,6 +15,8 @@ app.register_blueprint(product_bp)
 app.register_blueprint(labworker_bp)
 app.register_blueprint(micro_bp)
 app.register_blueprint(chem_bp)
+app.register_blueprint(physic_bp)
+app.register_blueprint(scientist_bp)
 
 @app.route("/")
 def home():
