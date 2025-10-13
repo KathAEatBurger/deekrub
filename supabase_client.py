@@ -24,6 +24,11 @@ def insert_product(data):
     print("Insert response:", response.status_code, response_data)
     return response_data, response.status_code
 
+def get_employees():
+    url = f"{SUPABASE_URL}/rest/v1/employee?select=*"
+    response = requests.get(url, headers=headers)
+    return response.json()
+
 def get_products():
     url = f"{SUPABASE_URL}/rest/v1/lab_product?select=*"
     response = requests.get(url, headers=headers)
