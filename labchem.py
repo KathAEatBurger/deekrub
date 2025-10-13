@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 import os
 from werkzeug.utils import secure_filename
-from product import get_products  # แก้ไข: import ฟังก์ชัน get_products แทน products
+from supabase_client import get_products  # ใช้จาก supabase_client ถ้าดึงจาก Supabase
 
 chem_bp = Blueprint('chem', __name__, url_prefix='/lab/chem')
 
@@ -13,17 +13,14 @@ def allowed_file(filename):
 
 @chem_bp.route('/', methods=['GET', 'POST'])
 def chem_home():
-    # ดึงข้อมูลสินค้าทุกครั้งที่โหลดหน้า
     all_products = get_products()
 
-    # ดึงข้อมูลสินค้าที่ส่งมาจาก session
-    sent_data = session.pop('sent_data', None)  # pop เพื่อใช้ครั้งเดียว
+    sent_data = session.pop('sent_data', None)  # ใช้ครั้งเดียว
     sent_products = []
 
-    if sent_data and sent_data.get('lab') == 'chem':  # ตรวจสอบว่าเลือก lab chem
+    if sent_data and sent_data.get('lab') == 'chem':
         selected_codes = sent_data.get('product_codes', [])
-        # กรองสินค้าที่มี product_code ตรงกับที่เลือกส่งมา
-        sent_products = [p for p in all_products if p.get('product_code') in selected_codes]
+        sent_products = [p for p in all_products if p.get('product_id') in selected_codes]
 
     # อัปโหลดไฟล์
     if request.method == 'POST':
