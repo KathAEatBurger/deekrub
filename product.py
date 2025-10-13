@@ -14,9 +14,14 @@ def add_item():
     if request.method == 'POST':
         product_data = {
             'product_id': request.form.get('product_id'),
+            'sample_date': request.form.get('sample_date'),
             'owner': request.form.get('owner'),
             'product_spec': request.form.get('product_spec'),
-            'lab_no': request.form.get('lab_no')
+            'lot': request.form.get('lot'),
+            'document_date': request.form.get('document_date'),
+            'item': request.form.get('item'),
+            'lab_no': request.form.get('lab_no'),
+            'project_code': request.form.get('project_code')
         }
         session['pending_product'] = product_data
         return redirect(url_for('product.confirm_item'))

@@ -14,15 +14,20 @@ headers = {
 }
 
 def insert_product(data):
-    url = f"{SUPABASE_URL}/rest/v1/{"lab_product"}"
+    url = f"{SUPABASE_URL}/rest/v1/lab_product"
     response = requests.post(url, json=data, headers=headers)
     print("Insert response:", response.status_code, response.json())  # debug ดูผลตอบกลับจาก supabase
     return response.json(), response.status_code
 
 def get_products():
-    url = f"{SUPABASE_URL}/rest/v1/{"lab_product"}?select=*"
+    url = f"{SUPABASE_URL}/rest/v1/lab_product?select=*"
     response = requests.get(url, headers=headers)
     return response.json()
 
 print(f"URL: {SUPABASE_URL}")
 print(f"API Key: {SUPABASE_API_KEY}")
+
+if __name__ == "__main__":
+    print("=== TESTING get_products() ===")
+    products = get_products()
+    print("Response from Supabase:", products)
