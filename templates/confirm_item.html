@@ -61,10 +61,15 @@
 
         <h2>ยืนยันการเพิ่มสินค้า</h2>
 
-        <p><span class="label">รหัสสินค้า:</span> {{ product.code }}</p>
-        <p><span class="label">ชื่อผู้ส่ง:</span> {{ product.sender }}</p>
-        <p><span class="label">ประเภทสินค้า:</span> {{ product.type }}</p>
-        <p><span class="label">หมายเลขแล็บ:</span> {{ product.lab_number }}</p>
+        <p><span class="label">รหัสสินค้า:</span> {{ product.product_id }}</p>
+        <p><span class="label">วันที่เก็บตัวอย่าง:</span> {{ product.sample_date }}</p>
+        <p><span class="label">ชื่อผู้ส่ง:</span> {{ product.owner }}</p>
+        <p><span class="label">ประเภทสินค้า:</span> {{ product.product_spec }}</p>
+        <p><span class="label">ล็อต:</span> {{ product.lot }}</p>
+        <p><span class="label">วันที่เอกสาร:</span> {{ product.document_date }}</p>
+        <p><span class="label">รายการสินค้า:</span> {{ product.item }}</p>
+        <p><span class="label">หมายเลขแล็บ:</span> {{ product.lab_no }}</p>
+        <p><span class="label">รหัสโครงการ:</span> {{ product.project_code }}</p>
 
         <form method="POST" class="buttons">
             <button type="submit" name="action" value="yes" class="yes">✔ ยืนยัน</button>

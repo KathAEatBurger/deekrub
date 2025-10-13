@@ -102,9 +102,14 @@
                 <tr>
                     <th><input type="checkbox" id="select-all"></th>
                     <th>รหัสสินค้า</th>
+                    <th>วันที่เก็บตัวอย่าง</th>
                     <th>ชื่อผู้ส่ง</th>
                     <th>ประเภทสินค้า</th>
+                    <th>ล็อต</th>
+                    <th>วันที่เอกสาร</th>
+                    <th>รายการ</th>
                     <th>หมายเลขแล็บ</th>
+                    <th>รหัสโครงการ</th>
                     <th>สถานะ</th>
                 </tr>
             </thead>
@@ -119,9 +124,14 @@
                     {% endif %}
                 </td>
                 <td>{{ p.product_id }}</td>
-                <td>{{ p.owner }}</td>
-                <td>{{ p.product_spec }}</td>
-                <td>{{ p.lab_no }}</td>
+                <td>{{ p.sample_date or '-' }}</td>
+                <td>{{ p.owner or '-' }}</td>
+                <td>{{ p.product_spec or '-' }}</td>
+                <td>{{ p.lot or '-' }}</td>
+                <td>{{ p.document_date or '-' }}</td>
+                <td>{{ p.item or '-' }}</td>
+                <td>{{ p.lab_no or '-' }}</td>
+                <td>{{ p.project_code or '-' }}</td>
                 <td>
                     {% if p.get('sent') %}
                         <span class="sent-label">✔️ ส่งแล้ว</span>
@@ -131,7 +141,7 @@
                 </td>
             </tr>
             {% endfor %}
-        </tbody>
+            </tbody>
         </table>
 
         <label for="lab_choice"><strong>เลือกแล็บที่ต้องการส่งไป:</strong></label>

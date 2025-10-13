@@ -17,13 +17,16 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        label, input {
+        label {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        input {
             display: block;
             width: 100%;
-            margin-bottom: 1rem;
-        }
-        input[type="text"] {
             padding: 0.5rem;
+            margin-top: 0.3rem;
+            margin-bottom: 1rem;
             font-size: 1rem;
         }
         button {
@@ -57,16 +60,31 @@
         <h2>เพิ่มสินค้าใหม่</h2>
 
         <label>รหัสสินค้า:</label>
-        <input type="text" name="product_code" required>
+        <input type="text" name="product_id" required>
+
+        <label>วันที่เก็บตัวอย่าง:</label>
+        <input type="date" name="sample_date" required>
 
         <label>ชื่อผู้ส่ง:</label>
-        <input type="text" name="sender_name" required>
+        <input type="text" name="owner" required>
 
         <label>ประเภทสินค้า:</label>
-        <input type="text" name="product_type" required>
+        <input type="text" name="product_spec">
 
-        <label>หมายเลขแล็บที่ต้องการส่งไป:</label>
-        <input type="text" name="lab_number" required>
+        <label>ล็อตสินค้า:</label>
+        <input type="text" name="lot">
+
+        <label>วันที่เอกสาร:</label>
+        <input type="date" name="document_date">
+
+        <label>รายการสินค้า:</label>
+        <input type="text" name="item">
+
+        <label>หมายเลขแล็บ:</label>
+        <input type="text" name="lab_no">
+
+        <label>รหัสโครงการ:</label>
+        <input type="text" name="project_code">
 
         <button type="submit">ถัดไป</button>
     </form>
