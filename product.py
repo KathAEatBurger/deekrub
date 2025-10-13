@@ -16,7 +16,7 @@ def add_item():
             'product_id': request.form.get('product_id'),
             'owner': request.form.get('owner'),
             'product_spec': request.form.get('product_spec'),
-            'lab_no': request.form.get('lab_no')  # เปลี่ยนจาก lab_number เป็น lab_no
+            'lab_no': request.form.get('lab_no')
         }
         session['pending_product'] = product_data
         return redirect(url_for('product.confirm_item'))
@@ -56,7 +56,7 @@ def send_to_lab():
         return redirect(url_for('product.show_product'))
 
     session['sent_data'] = {
-        'product_codes': selected_codes,  # เปลี่ยนจาก 'product_id' เป็น 'product_codes'
+        'product_codes': selected_codes,
         'lab': selected_lab
     }
 
