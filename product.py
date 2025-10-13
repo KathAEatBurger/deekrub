@@ -9,20 +9,29 @@ def show_product():
     print("Products from DB:", products)  # debug ดูข้อมูลที่ได้
     return render_template('product.html', products=products)
 
+def empty_to_none(val):
+    return val if val and val.strip() else None
+
 @product_bp.route('/add', methods=['GET', 'POST'])
 def add_item():
     if request.method == 'POST':
         product_data = {
             'product_id': request.form.get('product_id'),
-            'sample_date': request.form.get('sample_date'),
-            'owner': request.form.get('owner'),
-            'product_spec': request.form.get('product_spec'),
-            'lot': request.form.get('lot'),
-            'document_date': request.form.get('document_date'),
-            'item': request.form.get('item'),
-            'lab_no': request.form.get('lab_no'),
-            'project_code': request.form.get('project_code')
+            'sample_date': request.form.get('sample_date'),  # ต้องไม่เป็น ""
+            'owner': empty_to_none(request.form.get('owner')),
+            'product_spec': empty_to_none(request.form.get('product_spec')),
+            'lot': empty_to_none(request.form.get('lot')),
+            'document_date': empty_to_none(request.form.get('document_date')),
+            'item': empty_to_none(request.form.get('item')),
+            'lab_no': empty_to_none(request.form.get('lab_no')),
+            'project_code': empty_to_none(request.form.get('project_code'))
         }
+
+        # เช็คกรอกวันที่หรือยัง
+        if not product_data['sample_date']:
+            flash("⚠️ กรุณาระบุวันที่เก็บตัวอย่าง")
+            return redirect(url_for('product.add_item'))
+
         session['pending_product'] = product_data
         return redirect(url_for('product.confirm_item'))
 

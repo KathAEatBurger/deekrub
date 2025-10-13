@@ -16,8 +16,13 @@ headers = {
 def insert_product(data):
     url = f"{SUPABASE_URL}/rest/v1/lab_product"
     response = requests.post(url, json=data, headers=headers)
-    print("Insert response:", response.status_code, response.json())  # debug ดูผลตอบกลับจาก supabase
-    return response.json(), response.status_code
+    try:
+        response_data = response.json()
+    except ValueError:
+        response_data = {"error": "Invalid JSON response"}
+
+    print("Insert response:", response.status_code, response_data)
+    return response_data, response.status_code
 
 def get_products():
     url = f"{SUPABASE_URL}/rest/v1/lab_product?select=*"
