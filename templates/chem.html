@@ -9,22 +9,24 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f9fafb;
             color: #333;
+            height: 100vh;
             padding: 20px;
             display: flex;
             justify-content: center;
         }
         .container {
-            background: #fff;
-            padding: 30px 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
             max-width: 900px;
             width: 100%;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            padding: 30px 40px;
         }
         h1 {
-            text-align: center;
+            font-size: 2.2rem;
             margin-bottom: 20px;
             color: #2c3e50;
+            text-align: center;
         }
         p {
             text-align: center;
@@ -63,7 +65,7 @@
 <body>
     <div class="container">
         <h1>Chem Lab</h1>
-        <p>รายการสินค้าที่ส่งมาจากหน้า Product</p>
+        <h2>รายการสินค้า</h2>
 
         {% if products %}
         <!-- เพิ่ม form + checkbox + ปุ่มส่ง -->
