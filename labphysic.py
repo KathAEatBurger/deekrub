@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session
-from product import products as all_products
+from product import get_products  # Import the function, not a variable
 
 physic_bp = Blueprint('physic', __name__, url_prefix='/lab/physic')
 
@@ -9,7 +9,9 @@ def physic_home():
     sent_data = session.get('sent_data')
     if sent_data and sent_data.get('lab') == 'physic':
         codes = sent_data.get('product_codes', [])
-        # ดึงสินค้าแบบเต็ม (dict) ที่มี code ตรงกับรหัสที่ส่งมา
-        product_list = [p for p in all_products if p['code'] in codes]
+        # Fetch fresh products from DB
+        all_products = get_products()
+        # Filter products that match the sent codes
+        product_list = [p for p in all_products if p.get('product_code') in codes]
 
     return render_template('physic.html', products=product_list)

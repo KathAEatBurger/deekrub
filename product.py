@@ -1,22 +1,22 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
+from supabase_client import insert_product, get_products
 
 product_bp = Blueprint('product', __name__, url_prefix='/product')
 
-# จำลองฐานข้อมูลสินค้าในรูปแบบ list
-products = []
-
 @product_bp.route('/')
 def show_product():
+    products = get_products()
+    print("Products from DB:", products)  # debug ดูข้อมูลที่ได้
     return render_template('product.html', products=products)
 
 @product_bp.route('/add', methods=['GET', 'POST'])
 def add_item():
     if request.method == 'POST':
         product_data = {
-            'code': request.form.get('product_code'),
-            'sender': request.form.get('sender_name'),
-            'type': request.form.get('product_type'),
-            'lab_number': request.form.get('lab_number')
+            'product_id': request.form.get('product_id'),
+            'owner': request.form.get('owner'),
+            'product_spec': request.form.get('product_spec'),
+            'lab_no': request.form.get('lab_no')  # เปลี่ยนจาก lab_number เป็น lab_no
         }
         session['pending_product'] = product_data
         return redirect(url_for('product.confirm_item'))
@@ -32,14 +32,14 @@ def confirm_item():
     if request.method == 'POST':
         action = request.form.get('action')
         if action == 'yes':
-            # เช็ครหัสสินค้าซ้ำ
-            if any(p['code'] == product['code'] for p in products):
-                flash(f"❌ รหัสสินค้า '{product['code']}' ซ้ำกัน กรุณาใช้รหัสอื่น")
+            products = get_products()
+            if any(p['product_id'] == product['product_id'] for p in products):
+                flash(f"❌ รหัสสินค้า '{product['product_id']}' ซ้ำกัน กรุณาใช้รหัสอื่น")
                 return redirect(url_for('product.add_item'))
 
-            products.append(product)
+            insert_product(product)
             session.pop('pending_product', None)
-            flash(f"✅ เพิ่มสินค้า '{product['code']}' เรียบร้อยแล้ว")
+            flash(f"✅ เพิ่มสินค้า '{product['product_id']}' เรียบร้อยแล้ว")
             return redirect(url_for('product.show_product'))
         else:
             return redirect(url_for('product.add_item'))
@@ -56,7 +56,7 @@ def send_to_lab():
         return redirect(url_for('product.show_product'))
 
     session['sent_data'] = {
-        'product_codes': selected_codes,
+        'product_codes': selected_codes,  # เปลี่ยนจาก 'product_id' เป็น 'product_codes'
         'lab': selected_lab
     }
 

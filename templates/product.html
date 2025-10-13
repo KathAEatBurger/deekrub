@@ -109,29 +109,29 @@
                 </tr>
             </thead>
             <tbody>
-                {% for p in products %}
-                <tr>
-                    <td>
-                        {% if not p.get('sent') %}
-                            <input type="checkbox" class="select-item" name="selected_items" value="{{ p.code }}">
-                        {% else %}
-                            -
-                        {% endif %}
-                    </td>
-                    <td>{{ p.code }}</td>
-                    <td>{{ p.sender }}</td>
-                    <td>{{ p.type }}</td>
-                    <td>{{ p.lab_number }}</td>
-                    <td>
-                        {% if p.get('sent') %}
-                            <span class="sent-label">✔️ ส่งแล้ว</span>
-                        {% else %}
-                            <span style="color: orange; font-weight: bold;">ยังไม่ส่ง</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
+            {% for p in products %}
+            <tr>
+                <td>
+                    {% if not p.get('sent') %}
+                        <input type="checkbox" class="select-item" name="selected_items" value="{{ p.product_id }}">
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>{{ p.product_id }}</td>
+                <td>{{ p.owner }}</td>
+                <td>{{ p.product_spec }}</td>
+                <td>{{ p.lab_no }}</td>
+                <td>
+                    {% if p.get('sent') %}
+                        <span class="sent-label">✔️ ส่งแล้ว</span>
+                    {% else %}
+                        <span style="color: orange; font-weight: bold;">ยังไม่ส่ง</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
         </table>
 
         <label for="lab_choice"><strong>เลือกแล็บที่ต้องการส่งไป:</strong></label>
