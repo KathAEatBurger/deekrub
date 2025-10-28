@@ -62,8 +62,8 @@
     <ul>
         {% for worker in workers %}
             <li>
-                <a href="{{ url_for('labworker.show_labworker', name=worker.name) }}">
-                    {{ worker.name }}
+                <a href="{{url_for('labworker.show_labworker', name=worker.name)}}">
+                    {{worker.name}}
                 </a>
                 <span class="role">{{ worker.role }}</span>
             </li>
