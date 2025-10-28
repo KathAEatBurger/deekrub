@@ -34,15 +34,10 @@ def get_products():
     response = requests.get(url, headers=headers)
     return response.json()
     
-def get_lab_with_product_by_ids(product_ids):
-    ids_str = ",".join(f'"{pid}"' for pid in product_ids)  # ต้องใส่ "..." ครอบ
+def get_lab():
     url = f"{SUPABASE_URL}/rest/v1/lab?select=*"
-    
     response = requests.get(url, headers=headers)
-    try:
-        return response.json()
-    except ValueError:
-        return {"error": "Invalid JSON response"}
+    return response.json()
 
 print(f"URL: {SUPABASE_URL}")
 print(f"API Key: {SUPABASE_API_KEY}")
