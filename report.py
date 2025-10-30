@@ -112,7 +112,13 @@ def approve_report(report_id):
         "approval_date": str(date.today())
     }
     response = requests.patch(url, json=data, headers=headers)
-    return response.status_code
+    
+    if response.status_code in (200, 204):
+        flash(f"✅ รายงาน {report_id} อนุมัติเรียบร้อยแล้ว", "success")
+    else:
+        flash("❌ เกิดข้อผิดพลาดในการอนุมัติ", "error")
+    
+    return redirect(url_for("report.report_home"))
 
 # เผยแพร่รายงาน
 @report_bp.route("/publish/<report_id>", methods=["POST"])
@@ -142,3 +148,4 @@ def published_reports():
         username=session["user"],
         published_reports=published
     )
+

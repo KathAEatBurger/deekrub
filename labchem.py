@@ -27,11 +27,11 @@ def chem_home():
 
         if not prep_id or not prepared_by or not date:
             flash("⚠️ กรุณากรอก Prep ID, Prepared By และ Date", "warning")
-            return redirect(url_for("chem.chem_home"))
+            return redirect(url_for("lab.chem.chem_home"))
 
         if not selected_products:
             flash("⚠️ กรุณาเลือกสินค้าอย่างน้อย 1 รายการ", "warning")
-            return redirect(url_for("chem.chem_home"))
+            return redirect(url_for("lab.chem.chem_home"))
 
         success_count = 0
         for product_id in selected_products:
@@ -49,6 +49,6 @@ def chem_home():
                 flash(f"❌ ไม่สามารถบันทึกสินค้า {product_id}: {response}", "danger")
 
         flash(f"✅ บันทึกสินค้าสำหรับ prep_id '{prep_id}' จำนวน {success_count} รายการเรียบร้อยแล้ว")
-        return redirect(url_for("chem.chem_home"))
+        return redirect(url_for("lab.chem.chem_home"))
 
     return render_template("chem.html", products=products)

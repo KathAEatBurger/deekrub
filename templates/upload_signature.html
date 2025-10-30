@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>อัปโหลดลายเซ็น</title>
+</head>
+<body>
+<h2>อัปโหลดลายเซ็นสำหรับรายงาน {{ report.report_id }}</h2>
+<form method="post" enctype="multipart/form-data">
+    <input type="file" name="signature" accept="image/*" required>
+    <button type="submit">อัปโหลด & สร้างรายงาน</button>
+</form>
+<a href="{{ url_for('report.report_home') }}">⬅ กลับหน้ารายงาน</a>
+</body>
+</html>
