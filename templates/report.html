@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>รายงานผลการทดลอง</title>
+    <style>
+        body { font-family: "TH Sarabun New", sans-serif; background: #f8f9fa; }
+        table { border-collapse: collapse; width: 90%; margin: 20px auto; background-color: #fff; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+        button, a.btn {
+            padding: 6px 12px;
+            text-decoration: none;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        button:hover, a.btn:hover { background-color: #f0f0f0; }
+        .bottom-buttons { text-align: center; margin: 40px 0; }
+        a.home-btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        a.home-btn:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+    <h2 align="center">รายงานที่รออนุมัติ</h2>
+    <table>
+        <tr>
+            <th>Report ID</th>
+            <th>วันที่ทดสอบ</th>
+            <th>ผู้ทดสอบ</th>
+            <th>ผลการทดสอบ</th>
+            <th>สถานะ</th>
+            <th>การจัดการ</th>
+        </tr>
+        {% for r in pending_reports %}
+        <tr>
+            <td>{{ r.report_id }}</td>
+            <td>{{ r.test_date }}</td>
+            <td>{{ r.tested_by }}</td>
+            <td>{{ r.result_data }}</td>
+            <td>{{ r.status }}</td>
+            <td>
+                <a href="{{ url_for('report.view_report', report_id=r.report_id) }}" class="btn">🔍 ดูรายละเอียด</a>
+                <form action="{{ url_for('report.approve_report', report_id=r.report_id) }}" method="post" style="display:inline;">
+                    <button type="submit">✅ Approve</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        {% if not pending_reports %}
+        <tr><td colspan="6">ไม่มีรายงานที่รออนุมัติ</td></tr>
+        {% endif %}
+    </table>
+
+    <h2 align="center">รายงานที่อนุมัติแล้ว</h2>
+    <table>
+        <tr>
+            <th>Report ID</th>
+            <th>วันที่ทดสอบ</th>
+            <th>วันที่อนุมัติ</th>
+            <th>ผู้ทดสอบ</th>
+            <th>ผลการทดสอบ</th>
+            <th>หมายเหตุ</th>
+            <th>การจัดการ</th>
+        </tr>
+        {% for r in approved_reports %}
+        <tr>
+            <td>{{ r.report_id }}</td>
+            <td>{{ r.test_date }}</td>
+            <td>{{ r.approval_date }}</td>
+            <td>{{ r.tested_by }}</td>
+            <td>{{ r.result_data }}</td>
+            <td>{{ r.remarks }}</td>
+            <td>
+                <a href="{{ url_for('report.view_report', report_id=r.report_id) }}" class="btn">🔍 ดูรายละเอียด</a>
+                <form action="{{ url_for('report.published_reports', report_id=r.report_id) }}" method="post" style="display:inline;">
+                    <button type="submit">🚀 Publish</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        {% if not approved_reports %}
+        <tr><td colspan="7">ไม่มีรายงานที่อนุมัติแล้ว</td></tr>
+        {% endif %}
+    </table>
+
+    <div class="bottom-buttons">
+        <a href="{{ url_for('report.published_reports') }}" class="btn">📄 ดูรายงานที่เผยแพร่แล้ว</a>
+        <br><br>
+        <a href="/home" class="home-btn">⬅ กลับหน้าแรก</a>
+    </div>
+</body>
+</html>

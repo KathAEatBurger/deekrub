@@ -3,121 +3,98 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Chem Lab</title>
+    <title>แล็บเคมี</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f9fafb;
-            color: #333;
-            height: 100vh;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-        .container {
-            max-width: 900px;
-            width: 100%;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-            padding: 30px 40px;
-        }
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            color: #2c3e50;
-            text-align: center;
-        }
-        p {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        thead {
-            background-color: #3498db;
-            color: white;
-        }
-        th, td {
-            padding: 0.8rem 1rem;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-        tbody tr:hover {
-            background-color: #f2f9ff;
-        }
-        .back-link {
-            display: inline-block;
-            margin-top: 10px;
-            color: #3498db;
-            font-weight: 600;
-            text-decoration: none;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 900px; margin: 3rem auto; padding: 1rem 2rem; background-color: #f5f7fa; color: #333; }
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 2rem; font-weight: 700; font-size: 2rem; }
+        table { width: 100%; border-collapse: collapse; background-color: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; }
+        thead { background-color: #27ae60; color: white; }
+        th, td { padding: 0.8rem 1rem; text-align: left; border-bottom: 1px solid #ddd; }
+        tbody tr:hover { background-color: #f1f9ff; }
+        .home-btn { display: inline-block; margin: 1rem 0; padding: 0.6rem 1.2rem; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; background-color: #2980b9; }
+        .home-btn:hover { background-color: #1c5980; }
+        .sent-label { color: green; font-weight: bold; }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.3rem; font-weight: 600; }
+        input[type="text"], input[type="date"] { width: 100%; padding: 0.5rem; border-radius: 4px; border: 1px solid #ccc; }
+        .submit-btn { margin-top: 1rem; padding: 0.6rem 1.2rem; background-color: #27ae60; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .submit-btn:hover { background-color: #1e8449; }
+        input[type="checkbox"] { transform: scale(1.2); margin-right: 0.5rem; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Chem Lab</h1>
-        <h2>รายการสินค้า</h2>
+    <h1>ข้อมูลสินค้าแล็บเคมี</h1>
+    <a href="{{ url_for('home') }}" class="home-btn">← กลับหน้า Homepage</a>
 
-        {% if products %}
-        <!-- เพิ่ม form + checkbox + ปุ่มส่ง -->
-        <form method="POST" action="{{ url_for('scientist.scientist_home') }}" enctype="multipart/form-data">
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            <input type="checkbox" onclick="toggleSelectAll(this)">
-                            เลือกทั้งหมด
-                        </th>
-                        <th>ลำดับ</th>
-                        <th>รหัสสินค้า</th>
-                        <th>ชื่อผู้ส่ง</th>
-                        <th>ประเภทสินค้า</th>
-                        <th>หมายเลขแล็บ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for p in products %}
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="selected_items" value="{{ p['code'] }}">
-                        </td>
-                        <td>{{ loop.index }}</td>
-                        <td>{{ p['code'] }}</td>
-                        <td>{{ p['sender'] }}</td>
-                        <td>{{ p['type'] }}</td>
-                        <td>{{ p['lab_number'] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+          {% for category, msg in messages %}
+            <li style="color: {% if category == 'danger' %}red{% elif category == 'warning' %}orange{% else %}green{% endif %}; font-weight: bold;">{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
 
-            <button type="submit">เตรียมแล้ว</button>
-        </form>
+    {% if products %}
+    <form method="POST">
+        <div class="form-group">
+            <label for="prep_id">Prep ID:</label>
+            <input type="text" name="prep_id" id="prep_id" required>
+        </div>
+        <div class="form-group">
+            <label for="prepared_by">Prepared By:</label>
+            <input type="text" name="prepared_by" id="prepared_by" required>
+        </div>
+        <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" name="date" id="date" required>
+        </div>
 
-
-        <!-- JavaScript: เลือก/ไม่เลือกทั้งหมด -->
-        <script>
-        function toggleSelectAll(masterCheckbox) {
-            const checkboxes = document.querySelectorAll('input[name="selected_items"]');
-            checkboxes.forEach(cb => cb.checked = masterCheckbox.checked);
-        }
-        </script>
-
-        
-        {% else %}
-        <p><em>ยังไม่มีสินค้าที่ถูกส่งมายังแล็บนี้</em></p>
-        {% endif %}
-
-        <a href="/lab" class="back-link">← กลับหน้าห้องแลป</a>
-    </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>เลือก</th>
+                    <th>รหัสสินค้า</th>
+                    <th>วันที่เก็บตัวอย่าง</th>
+                    <th>ชื่อผู้ส่ง</th>
+                    <th>ประเภทสินค้า</th>
+                    <th>ล็อต</th>
+                    <th>วันที่เอกสาร</th>
+                    <th>รายการ</th>
+                    <th>หมายเลขแล็บ</th>
+                    <th>รหัสโครงการ</th>
+                    <th>สถานะ</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for p in products %}
+                <tr>
+                    <td><input type="checkbox" name="selected_products" value="{{ p.product_id }}"></td>
+                    <td>{{ p.product_id }}</td>
+                    <td>{{ p.sample_date or '-' }}</td>
+                    <td>{{ p.owner or '-' }}</td>
+                    <td>{{ p.product_spec or '-' }}</td>
+                    <td>{{ p.lot or '-' }}</td>
+                    <td>{{ p.document_date or '-' }}</td>
+                    <td>{{ p.item or '-' }}</td>
+                    <td>{{ p.lab_no or '-' }}</td>
+                    <td>{{ p.project_code or '-' }}</td>
+                    <td>
+                        {% if p.sent %}
+                            <span class="sent-label">✔️ ส่งแล้ว</span>
+                        {% else %}
+                            <span style="color: orange; font-weight: bold;">ยังไม่ส่ง</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit" class="submit-btn">บันทึกตัวอย่าง</button>
+    </form>
+    {% else %}
+        <p><em>ยังไม่มีรายการสินค้า</em></p>
+    {% endif %}
 </body>
 </html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sample Prep - Scientist</title>
+<style>
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 1000px; margin: 3rem auto; padding: 1rem 2rem; background-color: #f5f7fa; color: #333; }
+h1 { text-align: center; color: #2c3e50; margin-bottom: 2rem; font-weight: 700; font-size: 2rem; }
+table { width: 100%; border-collapse: collapse; background-color: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; }
+thead { background-color: #27ae60; color: white; }
+th, td { padding: 0.8rem 1rem; text-align: left; border-bottom: 1px solid #ddd; }
+tbody tr:hover { background-color: #f1f9ff; }
+.home-btn { display: inline-block; margin: 1rem 0; padding: 0.6rem 1.2rem; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; background-color: #2980b9; }
+.home-btn:hover { background-color: #1c5980; }
+.sent-label { color: green; font-weight: bold; }
+button.submit-btn { margin-top: 1rem; padding: 0.6rem 1.2rem; border: none; border-radius: 6px; background-color: #27ae60; color: white; font-weight: 600; cursor: pointer; }
+button.submit-btn:hover { background-color: #1e8449; }
+</style>
+</head>
+<body>
+<h1>Sample Prep Table</h1>
+<a href="{{ url_for('home') }}" class="home-btn">← กลับหน้า Homepage</a>
+
+{% if sample_preps %}
+<form method="POST">
+    <table>
+        <thead>
+            <tr>
+                <th>เลือก</th>
+                <th>Prep ID</th>
+                <th>Prepared By</th>
+                <th>Product ID</th>
+                <th>Lab No</th>
+                <th>Date</th>
+                <th>ผลการทดลอง</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sp in sample_preps %}
+            <tr>
+                <td><input type="checkbox" name="selected_prep" value="{{ sp.prep_id }}"></td>
+                <td>{{ sp.prep_id }}</td>
+                <td>{{ sp.prepared_by or '-' }}</td>
+                <td>{{ sp.product_id or '-' }}</td>
+                <td>{{ sp.lab_no or '-' }}</td>
+                <td>{{ sp.date or '-' }}</td>
+                <td>
+                    <textarea name="result_{{ sp.prep_id }}" rows="4" style="width: 100%;" placeholder="กรอกผลการทดลอง"></textarea>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit" class="submit-btn">บันทึกผลการทดลอง</button>
+</form>
+
+{% else %}
+    <p><em>ยังไม่มีรายการ sample prep</em></p>
+{% endif %}
+</body>
+</html>

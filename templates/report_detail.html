@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>รายละเอียดรายงาน {{ report.report_id }}</title>
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+}
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+}
+form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+label {
+    font-weight: 600;
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+input[type="text"], input[type="date"], textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    resize: vertical;
+}
+textarea {
+    min-height: 120px;
+    overflow-y: auto;
+}
+button {
+    margin-top: 1.5rem;
+    padding: 0.8rem 1.5rem;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #1e8449;
+}
+a.home-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    background-color: #3498db;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+a.home-btn:hover {
+    background-color: #2980b9;
+}
+</style>
+</head>
+<body>
+
+<h1>รายละเอียดรายงาน {{ report.report_id }}</h1>
+<a href="{{ url_for('report.report_home') }}" class="home-btn">⬅ กลับหน้ารายงาน</a>
+
+<form method="POST">
+    <label for="test_date">วันที่ทดสอบ</label>
+    <input type="date" name="test_date" id="test_date" value="{{ report.test_date or '' }}" required>
+
+    <label for="tested_by">ผู้ทดสอบ</label>
+    <input type="text" name="tested_by" id="tested_by" value="{{ report.tested_by or '' }}" required>
+
+    <label for="result_data">ผลการทดสอบ</label>
+    <textarea name="result_data" id="result_data" placeholder="กรอกผลการทดสอบ">{{ report.result_data or '' }}</textarea>
+
+    <label for="remarks">หมายเหตุ</label>
+    <textarea name="remarks" id="remarks" placeholder="กรอกหมายเหตุ">{{ report.remarks or '' }}</textarea>
+
+    <label for="status">สถานะ</label>
+    <input type="text" name="status" id="status" value="{{ report.status or '' }}" readonly>
+
+    <button type="submit">💾 บันทึกการแก้ไข</button>
+</form>
+
+</body>
+</html>

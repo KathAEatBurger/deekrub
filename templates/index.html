@@ -5,23 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lab Platform - หน้าแรก</title>
   <style>
-    /* Reset และตั้งค่าพื้นฐาน */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f0f4f8;
       color: #333;
       line-height: 1.6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      padding: 20px;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ปุ่ม Logout ขวาบน */
+    a.logout-link {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: inline-block;
+      background: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      z-index: 1000;
+    }
+
+    a.logout-link:hover {
+      background: #2980b9;
     }
 
     .container {
@@ -32,6 +42,7 @@
       max-width: 500px;
       width: 100%;
       text-align: center;
+      margin: 100px auto;
     }
 
     h1 {
@@ -54,11 +65,9 @@
       text-decoration: none;
       font-weight: 600;
       transition: background-color 0.3s ease;
-      margin-top: 10px;
-      width: 120%;
+      margin: 10px auto;
+      width: 80%;
       max-width: 300px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     a.button-link:hover {
@@ -67,14 +76,19 @@
   </style>
 </head>
 <body>
+  <!-- ปุ่ม Logout ขวาบน -->
+  <a href="/" class="logout-link">Logout</a>
+
   <div class="container">
     <h1>ยินดีต้อนรับสู่ระบบ Lab Platform</h1>
     <p>ระบบบริหารจัดการห้องแล็บ และข้อมูลสินค้าที่เกี่ยวข้องอย่างครบวงจร</p>
 
     <a href="/lab" class="button-link">ไปที่หน้า Lab</a>
-    <a href="labworker" class="button-link">Employee</a>
+    <a href="/labworker" class="button-link">Employee</a>
     <a href="/product" class="button-link">Products</a>
-    <a href="/scientist" class="button-link">Report</a>
+    <a href="/scientist" class="button-link">Sample Prep</a>
+    <a href="/report" class="button-link">Report</a>
+    <a href="/report/published" class="button-link">Published Reports</a>
   </div>
 </body>
 </html>

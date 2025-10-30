@@ -1,5 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, url_for
-
+# labpage.py
+from flask import Blueprint, render_template
+from labmicro import micro_bp
+from labchem import chem_bp
+from labphysic import physic_bp
 
 lab_bp = Blueprint('lab', __name__, url_prefix='/lab')
 
@@ -7,24 +10,10 @@ lab_bp = Blueprint('lab', __name__, url_prefix='/lab')
 def lab_home():
     return render_template('lab.html')
 
-
-@lab_bp.route('/micro', methods=['GET', 'POST'])
-def lab_micro():
-    if request.method == 'POST':
-        product_code = request.form['product_code']
-        return redirect(url_for('product.show_product', product_code=product_code))
-    return render_template('micro.html')
-
-@lab_bp.route('/chem', methods=['GET', 'POST'])
-def lab_chem():
-    if request.method == 'POST':
-        product_code = request.form['product_code']
-        return redirect(url_for('product.show_product', product_code=product_code))
-    return render_template('chem.html')
-
-@lab_bp.route('/physic', methods=['GET', 'POST'])
-def lab_physic():
-    if request.method == 'POST':
-        product_code = request.form['product_code']
-        return redirect(url_for('product.show_product', product_code=product_code))
-    return render_template('physic.html')
+# ==================== Register 3 lab blueprints ====================
+# Microbiology
+lab_bp.register_blueprint(micro_bp, url_prefix='/micro')
+# Chemistry
+lab_bp.register_blueprint(chem_bp, url_prefix='/chem')
+# Physics
+lab_bp.register_blueprint(physic_bp, url_prefix='/physic')

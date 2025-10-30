@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>รายงานที่เผยแพร่แล้ว</title>
+    <style>
+        body { font-family: "TH Sarabun New", sans-serif; }
+        table { border-collapse: collapse; width: 90%; margin: 20px auto; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+
+        a.back-btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        a.back-btn:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+    <h2 align="center">📄 รายงานที่เผยแพร่แล้ว</h2>
+    <table>
+        <tr>
+            <th>Report ID</th>
+            <th>วันที่ทดสอบ</th>
+            <th>วันที่อนุมัติ</th>
+            <th>ผู้ทดสอบ</th>
+            <th>ผลการทดสอบ</th>
+            <th>หมายเหตุ</th>
+        </tr>
+        {% for r in published_reports %}
+        <tr>
+            <td>{{ r.report_id }}</td>
+            <td>{{ r.test_date }}</td>
+            <td>{{ r.approval_date }}</td>
+            <td>{{ r.tested_by }}</td>
+            <td>{{ r.result_data }}</td>
+            <td>{{ r.remarks }}</td>
+        </tr>
+        {% endfor %}
+        {% if not published_reports %}
+        <tr><td colspan="6">ยังไม่มีรายงานที่เผยแพร่</td></tr>
+        {% endif %}
+    </table>
+
+    <div align="center">
+        <a href="{{ url_for('report.report_home') }}" class="back-btn">⬅ กลับหน้า Report</a>
+    </div>
+</body>
+</html>
