@@ -8,7 +8,7 @@
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 900px; margin: 3rem auto; padding: 1rem 2rem; background-color: #f5f7fa; color: #333; }
         h1 { text-align: center; color: #2c3e50; margin-bottom: 2rem; font-weight: 700; font-size: 2rem; }
         table { width: 100%; border-collapse: collapse; background-color: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; }
-        thead { background-color: #27ae60; color: white; }
+        thead { background-color: #ae7c27; color: white; }
         th, td { padding: 0.8rem 1rem; text-align: left; border-bottom: 1px solid #ddd; }
         tbody tr:hover { background-color: #f1f9ff; }
         .home-btn { display: inline-block; margin: 1rem 0; padding: 0.6rem 1.2rem; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; background-color: #2980b9; }
@@ -24,7 +24,7 @@
 </head>
 <body>
     <h1>ข้อมูลสินค้าแลปเคมี</h1>
-    <a href="{{ url_for('home') }}" class="home-btn">← กลับหน้า Homepage</a>
+    <a href="/lab" class="home-btn">← กลับหน้า Lab</a>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -41,12 +41,8 @@
         <div class="form-group">
             <label for="prep_id">Prep ID:</label>
             <input type="text" name="prep_id" id="prep_id" required>
-        </div>
-        <div class="form-group">
             <label for="prepared_by">Prepared By:</label>
             <input type="text" name="prepared_by" id="prepared_by" required>
-        </div>
-        <div class="form-group">
             <label for="date">Date:</label>
             <input type="date" name="date" id="date" required>
         </div>
@@ -91,7 +87,7 @@
             {% endfor %}
             </tbody>
         </table>
-        <button type="submit" class="submit-btn">บันทึกตัวอย่าง</button>
+        <button type="submit" class="submit-btn">เตรียมตัวอย่าง</button>
     </form>
     {% else %}
         <p><em>ยังไม่มีรายการสินค้า</em></p>
