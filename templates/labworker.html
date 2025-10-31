@@ -41,22 +41,6 @@
         a:hover {
             text-decoration: underline;
         }
-        .button {
-      width: 20%;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      background: #3498db;
-      color: #fff;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .button:hover {
-      background: #2980b9;
-    }
         span.role {
             color: #7f8c8d;
             font-size: 0.9rem;
@@ -85,6 +69,6 @@
             </li>
         {% endfor %}
     </ul>
-    <button onclick="location.href='/home'" class = button>กลับหน้าแรก</button>
+    <a href="/home" class="back-link">← กลับหน้าแรก</a>
 </body>
 </html>
