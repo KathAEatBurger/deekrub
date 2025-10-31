@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>รายงาน {{ report.report_id }}</title>
+<style>
+body { font-family: 'TH Sarabun New', sans-serif; padding: 2rem; }
+h1 { text-align: center; }
+label { font-weight: bold; display: inline-block; width: 150px; }
+p { margin: 0.5rem 0; }
+.signature { margin-top: 3rem; }
+.signature img { max-width: 200px; height: auto; border: 1px solid #333; }
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th, td { border: 1px solid #333; padding: 8px; text-align: left; }
+th { background-color: #f0f0f0; }
+.signature { position: absolute; bottom: 20px; right: 20px; }
+.signature img { max-width: 200px; height: auto; border: 1px solid #333; }
+</style>
+</head>
+<body>
+
+<h1>รายงาน {{ report.report_id }}</h1>
+
+<p><label>วันที่ทดสอบ:</label> {{ report.test_date }}</p>
+<p><label>ผู้ทดสอบ:</label> {{ report.tested_by }}</p>
+<p><label>ผลการทดสอบ:</label><br>{{ report.result_data }}</p>
+<p><label>หมายเหตุ:</label><br>{{ report.remarks }}</p>
+
+<!-- ตารางสรุปรายละเอียด -->
+<table>
+    <thead>
+        <tr>
+            <th>Report ID</th>
+            <th>วันที่ทดสอบ</th>
+            <th>ผู้ทดสอบ</th>
+            <th>ผลการทดสอบ</th>
+            <th>หมายเหตุ</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ report.report_id }}</td>
+            <td>{{ report.test_date }}</td>
+            <td>{{ report.tested_by }}</td>
+            <td>{{ report.result_data }}</td>
+            <td>{{ report.remarks }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% if signature_file %}
+<div class="signature">
+    <p>ผู้อนุมัติ:</p>
+    <img src="{{ signature_file }}" alt="Signature">
+</div>
+{% endif %}
+
+<!-- ปุ่ม Save as PDF -->
+<a href="{{ url_for('report.report_pdf', report_id=report.report_id) }}" class="download-btn">💾 ดาวน์โหลด PDF</a>
+
+</body>
+</html>

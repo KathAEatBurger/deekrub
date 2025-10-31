@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Report {{ report.report_id }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; position: relative; min-height: 100vh; margin: 0; padding: 20px; }
+        h1 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #333; padding: 8px; text-align: left; }
+        th { background-color: #f0f0f0; }
+        .signature {
+            position: absolute;
+            bottom: -800px;
+            right: 20px;
+            width: 200px; /* ปรับขนาดตามต้องการ */
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Report ID: {{ report.report_id }}</h1>
+    <p>Test Date: {{ report.test_date }}</p>
+    <p>Tested By: {{ report.tested_by }}</p>
+    <p>Result: {{ report.result_data }}</p>
+    <p>Remarks: {{ report.remarks }}</p>
+
+    <!-- ตารางสรุปข้อมูล -->
+    <table>
+        <thead>
+            <tr>
+                <th>Report ID</th>
+                <th>Test Date</th>
+                <th>Tested By</th>
+                <th>Result</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ report.report_id }}</td>
+                <td>{{ report.test_date }}</td>
+                <td>{{ report.tested_by }}</td>
+                <td>{{ report.result_data }}</td>
+                <td>{{ report.remarks }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% if signature_file %}
+    <div class="signature">
+        <p style="text-align: center; margin-bottom: 5px;">ลายเซ็น</p>
+        <img src="{{ signature_file }}" alt="Signature" style="width: 100%;">
+        <p style="margin: 0;">(Laboratory Manager)</p>
+    </div>
+    {% endif %}
+</body>
+</html>

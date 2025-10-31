@@ -84,9 +84,7 @@
             <td>{{ r.remarks }}</td>
             <td>
                 <a href="{{ url_for('report.view_report', report_id=r.report_id) }}" class="btn">🔍 ดูรายละเอียด</a>
-                <form action="{{ url_for('report.publish_route', report_id=r.report_id) }}" method="post" style="display:inline;">
-                    <button type="submit">🚀 Publish</button>
-                </form>
+                <a href="{{ url_for('report.upload_signature', report_id=r.report_id) }}" class="btn">🚀 Publish</a>
             </td>
         </tr>
         {% endfor %}
