@@ -18,24 +18,20 @@
         .submit-btn:hover { background-color: #1e8449; }
         .sent-label { color: green; font-weight: bold; }
         .form-group { margin-bottom: 1rem; }
-        label { display: block; font-weight: bold; margin-bottom: 0.3rem; }
+        label { display: block; font-weight: 600; margin-bottom: 0.3rem; }
         input[type="text"], input[type="date"] { width: 100%; padding: 0.4rem; border-radius: 4px; border: 1px solid #ccc; }
     </style>
 </head>
 <body>
     <h1>ข้อมูลสินค้าแลปไมโครไบโอ</h1>
-    <a href="{{ url_for('home') }}" class="home-btn">← กลับหน้า Homepage</a>
+    <a href="/lab" class="home-btn">← กลับหน้า Lab</a>
 
     <form method="POST">
         <div class="form-group">
             <label for="prep_id">Prep ID</label>
             <input type="text" name="prep_id" id="prep_id" required>
-        </div>
-        <div class="form-group">
             <label for="prepared_by">Prepared By</label>
             <input type="text" name="prepared_by" id="prepared_by" required>
-        </div>
-        <div class="form-group">
             <label for="date">Date</label>
             <input type="date" name="date" id="date" required>
         </div>
@@ -83,7 +79,7 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <button type="submit" class="submit-btn">บันทึกสินค้า</button>
+            <button type="submit" class="submit-btn">เตรียมตัวอย่าง</button>
         {% else %}
             <p><em>ยังไม่มีรายการสินค้า</em></p>
         {% endif %}
