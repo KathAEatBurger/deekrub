@@ -23,6 +23,18 @@ headers = {
     "Content-Type": "application/json"
 }
 
+# ==================== Helper: ตรวจสอบ role ====================
+def team_lead_only():
+    """ตรวจสอบสิทธิ์: อนุญาตเฉพาะ Team Lead เท่านั้น"""
+    if "user" not in session:
+        flash("⚠️ กรุณาเข้าสู่ระบบก่อน", "warning")
+        return redirect(url_for("login.login"))
+    if session.get("role") != "Team Lead":
+        flash("❌ เฉพาะผู้ใช้ที่มีสิทธิ์ Team Lead เท่านั้นที่เข้าถึงได้", "danger")
+        return redirect(url_for("home"))
+    return None
+
+# ==================== Supabase ====================
 # ดึงข้อมูลทั้งหมด
 def get_reports():
     url = f"{SUPABASE_URL}/rest/v1/report?select=*"
@@ -57,11 +69,13 @@ def publish_report(report_id):
     response = requests.patch(url, json=data, headers=headers)
     return response.status_code
 
+# ==================== Routes ====================
 # หน้าแสดงรายงานหลัก (pending / approved)
 @report_bp.route("/")
 def report_home():
-    if "user" not in session:
-        return redirect(url_for("login.login"))
+    auth = team_lead_only()
+    if auth:
+        return auth
 
     reports = get_reports()
     pending_reports = [r for r in reports if r.get("status") == "pending"]
@@ -77,8 +91,9 @@ def report_home():
 # ดูรายละเอียดและแก้ไขรายงาน
 @report_bp.route("/view/<report_id>", methods=["GET", "POST"])
 def view_report(report_id):
-    if "user" not in session:
-        return redirect(url_for("login.login"))
+    auth = team_lead_only()
+    if auth:
+        return auth
 
     if request.method == "POST":
         old_id = request.form["old_report_id"]
@@ -112,6 +127,10 @@ def view_report(report_id):
 # อนุมัติรายงาน
 @report_bp.route("/approve/<report_id>", methods=["POST"])
 def approve_report(report_id):
+    auth = team_lead_only()
+    if auth:
+        return auth
+    
     url = f"{SUPABASE_URL}/rest/v1/report?report_id=eq.{report_id}"
     data = {
         "status": "approved",

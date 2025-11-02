@@ -9,17 +9,17 @@
         th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
         th { background-color: #f2f2f2; }
 
-        a.back-btn {
+        a.btn {
             display: inline-block;
             background-color: #3498db;
             color: #fff;
-            padding: 10px 20px;
+            padding: 5px 10px;
             border-radius: 6px;
             font-weight: bold;
             text-decoration: none;
             transition: background-color 0.3s;
         }
-        a.back-btn:hover { background-color: #2980b9; }
+        a.btn:hover { background-color: #2980b9; }
     </style>
 </head>
 <body>
@@ -32,6 +32,7 @@
             <th>ผู้ทดสอบ</th>
             <th>ผลการทดสอบ</th>
             <th>หมายเหตุ</th>
+            <th>ดาวน์โหลด PDF</th>
         </tr>
         {% for r in published_reports %}
         <tr>
@@ -41,15 +42,20 @@
             <td>{{ r.tested_by }}</td>
             <td>{{ r.result_data }}</td>
             <td>{{ r.remarks }}</td>
+            <td>
+                <a href="{{ url_for('report.report_pdf', report_id=r.report_id) }}" class="btn">
+                    📥 ดาวน์โหลด
+                </a>
+            </td>
         </tr>
         {% endfor %}
         {% if not published_reports %}
-        <tr><td colspan="6">ยังไม่มีรายงานที่เผยแพร่</td></tr>
+        <tr><td colspan="7">ยังไม่มีรายงานที่เผยแพร่</td></tr>
         {% endif %}
     </table>
 
     <div align="center">
-        <a href="{{ url_for('report.report_home') }}" class="back-btn">⬅ กลับหน้า Report</a>
+        <a href="/home" class="btn">⬅ กลับหน้าแรก</a>
     </div>
 </body>
 </html>
