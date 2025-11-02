@@ -18,6 +18,22 @@
             color: #2c3e50;
             margin-bottom: 1.5rem;
         }
+        .button {
+      width: 20%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      background: #3498db;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .button:hover {
+      background: #2980b9;
+    }
         ul {
             list-style-type: none;
             padding-left: 0;
@@ -69,6 +85,6 @@
             </li>
         {% endfor %}
     </ul>
-    <a href="/home" class="back-link">← กลับหน้าแรก</a>
+    <button onclick="location.href='/home'" class = button>กลับหน้าแรก</button>
 </body>
 </html>
