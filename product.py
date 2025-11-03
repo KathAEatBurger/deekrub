@@ -117,7 +117,6 @@ def send_to_lab():
         selected_lab_no = "L01"
     elif request.form.get('lab_choice') == "physic":
         selected_lab_no = "L03"
-    selected_lab_no = request.form.get('lab_choice')
     selected_lab_type = request.form.get('lab_choice')
     selected_lab_org = str(uuid.uuid4())
 
