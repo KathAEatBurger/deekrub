@@ -26,16 +26,6 @@
     <h1>ข้อมูลสินค้าแลปเคมี</h1>
     <a href="/lab" class="home-btn">← กลับหน้า Lab</a>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul>
-          {% for category, msg in messages %}
-            <li style="color: {% if category == 'danger' %}red{% elif category == 'warning' %}orange{% else %}green{% endif %}; font-weight: bold;">{{ msg }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-
     {% if products %}
     <form method="POST">
         <div class="form-group">
