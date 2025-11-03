@@ -11,6 +11,13 @@
             padding: 2rem;
             background-color: #f5f5f5;
         }
+        .lab-input {
+            margin: 0.4rem 0 1rem 0;
+            padding: 0.4rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            width: 103.5%;
+        }
         form {
             background: white;
             padding: 2rem;
@@ -65,11 +72,12 @@
         <label>วันที่เก็บตัวอย่าง:</label>
         <input type="date" name="sample_date" id="sample_date" required>
 
-        <label>ชื่อผู้ส่ง:</label>
-        <input type="text" name="owner" required>
-
-        <label>ประเภทสินค้า:</label>
-        <input type="text" name="product_spec">
+        <select name="product_type" id="product_type" class="lab-input" required>
+            <option value="">-- เลือกประเภทสินค้า --</option>
+            <option value="Frozen">แช่แข็ง</option>
+            <option value="Chilled">แช่เย็น</option>
+            <option value="Room temperature">อุณหภูมิห้อง</option>
+        </select>
 
         <label>ล็อตสินค้า:</label>
         <input type="text" name="lot">
@@ -79,9 +87,6 @@
 
         <label>รายการสินค้า:</label>
         <input type="text" name="item">
-
-        <label>รหัสโครงการ:</label>
-        <input type="text" name="project_code" required>
 
         <button type="submit">ถัดไป</button>
     </form>
