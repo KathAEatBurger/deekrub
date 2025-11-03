@@ -63,7 +63,7 @@
         <input type="text" name="product_id" required>
 
         <label>วันที่เก็บตัวอย่าง:</label>
-        <input type="date" name="sample_date" required>
+        <input type="date" name="sample_date" id="sample_date" required>
 
         <label>ชื่อผู้ส่ง:</label>
         <input type="text" name="owner" required>
@@ -75,20 +75,25 @@
         <input type="text" name="lot">
 
         <label>วันที่เอกสาร:</label>
-        <input type="date" name="document_date">
+        <input type="date" name="document_date" id="document_date" required>
 
         <label>รายการสินค้า:</label>
         <input type="text" name="item">
 
-        <label>หมายเลขแล็บ:</label>
-        <input type="text" name="lab_no">
-
         <label>รหัสโครงการ:</label>
-        <input type="text" name="project_code">
+        <input type="text" name="project_code" required>
 
         <button type="submit">ถัดไป</button>
     </form>
 
     <a href="{{ url_for('product.show_product') }}" class="back-btn">← กลับสู่หน้า Product</a>
+
+    <script>
+        // กำหนดวันที่สูงสุด (max) ให้ไม่เกินวันนี้
+        const today = new Date().toISOString().split("T")[0];
+        document.getElementById("sample_date").setAttribute("max", today);
+        document.getElementById("document_date").setAttribute("max", today);
+    </script>
+
 </body>
 </html>
