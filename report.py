@@ -261,9 +261,11 @@ def report_pdf(report_id):
     if signature_file:
         # wkhtmltopdf ต้องใช้ file:///
         signature_file = f"file:///{os.path.abspath(signature_file).replace(os.sep, '/')}"
-
+    
     # ดึงชื่อผู้ login
     current_user_name = session.get("name", "Laboratory Manager")
+
+    print("Current user name:", current_user_name)
 
     # สร้าง HTML
     rendered = render_template("report_pdf_only.html", report=report, signature_file=signature_file, name=current_user_name)
