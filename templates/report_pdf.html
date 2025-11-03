@@ -52,11 +52,20 @@ th { background-color: #f0f0f0; }
 <div class="signature">
     <p>ผู้อนุมัติ:</p>
     <img src="{{ signature_file }}" alt="Signature">
+    <p style="margin: 0;">{{ name }}</p>
+    <p style="margin: 0;">(Laboratory Manager)</p>
 </div>
 {% endif %}
 
 <!-- ปุ่ม Save as PDF -->
 <a href="{{ url_for('report.report_pdf', report_id=report.report_id) }}" class="download-btn">💾 ดาวน์โหลด PDF</a>
+
+<a href="{{ url_for('report.upload_signature', report_id=report.report_id) }}" 
+   style="position: fixed; bottom: 20px; left: 20px; text-decoration: none; 
+          padding: 8px 12px; background-color: #f0f0f0; color: black; 
+          border: 1px solid #333; border-radius: 4px;">
+   🔙 กลับไปหน้า Upload Signature
+</a>
 
 </body>
 </html>
