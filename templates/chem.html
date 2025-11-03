@@ -9,7 +9,8 @@
         h1 { text-align: center; color: #2c3e50; margin-bottom: 2rem; font-weight: 700; font-size: 2rem; }
         table { width: 100%; border-collapse: collapse; background-color: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; }
         thead { background-color: #ae7c27; color: white; }
-        th, td { padding: 0.8rem 1rem; text-align: left; border-bottom: 1px solid #ddd; }
+        th, td { padding: 0.8rem 1rem; text-align: left; border-bottom: 1px solid #ddd;max-width:100px;
+            overflow:hidden; }
         tbody tr:hover { background-color: #f1f9ff; }
         .home-btn { display: inline-block; margin: 1rem 0; padding: 0.6rem 1.2rem; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; background-color: #2980b9; }
         .home-btn:hover { background-color: #1c5980; }
@@ -58,7 +59,7 @@
                     <td>{{ p.lab_no or '-' }}</td>
                     <td>{{ p.project_code or '-' }}</td>
                     <td>
-                        {% if p.sent %}
+                        {% if p.preped %}
                             <span class="sent-label">✔️ ส่งแล้ว</span>
                         {% else %}
                             <span style="color: orange; font-weight: bold;">ยังไม่ส่ง</span>
