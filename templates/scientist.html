@@ -46,7 +46,14 @@ button.submit-btn:hover { background-color: #1e8449; }
                 <td>{{ sp.lab_no or '-' }}</td>
                 <td>{{ sp.date or '-' }}</td>
                 <td>
-                    <textarea name="result_{{ sp.prep_id }}" rows="4" style="width: 100%;" placeholder="กรอกผลการทดลอง"></textarea>
+                    <div class="result-container">
+                        <label class="result-option">
+                            <input type="radio" name="result_{{ sp.prep_id }}" value="ผ่าน"> ✅ ผ่าน
+                        </label>
+                        <label class="result-option">
+                            <input type="radio" name="result_{{ sp.prep_id }}" value="ไม่ผ่าน"> ❌ ไม่ผ่าน
+                        </label>
+                    </div>
                 </td>
             </tr>
         {% endfor %}

@@ -176,9 +176,6 @@ def get_sample_preps():
         return []
     
 def insert_report(data):
-    data = {
-        "preped": True
-    }
     """
     เพิ่มข้อมูล report
     data = {
