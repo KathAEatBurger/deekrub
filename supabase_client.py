@@ -78,7 +78,7 @@ def update_product_lab_info(product_id, lab_no, lab_type, org_code):
 
 def update_product_sent_status(product_id, lab):
     """อัปเดตสถานะสินค้าเป็นส่งแล้ว พร้อมระบุแล็บ"""
-    data = {"sent": True, "lab_no": lab}
+    data = {"preped": True, "lab_no": lab}
     url = f"{SUPABASE_URL}/rest/v1/lab_product?product_id=eq.{product_id}"
     response = requests.patch(url, json=data, headers=headers)
     try:
@@ -114,6 +114,18 @@ def insert_sample_prep(data):
     print("Insert sample_prep response:", response.status_code, response_data)
     return response_data, response.status_code
 
+
+def update_product_preped_status(product_id):
+    data = {"preped": True}
+    url = f"{SUPABASE_URL}/rest/v1/lab_product?product_id=eq.{product_id}"
+    response = requests.patch(url, json=data, headers=headers)
+    try:
+        response_data = response.json()
+    except ValueError:
+        response_data = {"error": "Invalid JSON response"}
+
+    print("Update sent_status response:", response.status_code, response_data)
+    return response_data, response.status_code
 # ==================== Employees ====================
 def get_employees():
     url = f"{SUPABASE_URL}/rest/v1/employee?select=*"
@@ -164,6 +176,9 @@ def get_sample_preps():
         return []
     
 def insert_report(data):
+    data = {
+        "preped": True
+    }
     """
     เพิ่มข้อมูล report
     data = {

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, redirect, url_for, flash, request
-from supabase_client import get_products, insert_sample_prep  # ใช้ฟังก์ชันเดียวกับ physic/micro
+from supabase_client import get_products, insert_sample_prep,update_product_preped_status  # ใช้ฟังก์ชันเดียวกับ physic/micro
 from functools import wraps
 import datetime
 import uuid
@@ -47,6 +47,7 @@ def chem_home():
             })
             if status in (200, 201):
                 success_count += 1
+                update_product_preped_status(product_id)
             else:
                 flash(f"❌ ไม่สามารถบันทึกสินค้า {product_id}: {response}", "danger")
 
