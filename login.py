@@ -22,6 +22,7 @@ def login():
                 if employee["password"] == password:
                     session["user"] = employee["username"]
                     session["role"] = employee.get("role", "user")
+                    session["name"] = employee.get("name", employee["username"])  # <-- เพิ่มตรงนี้
                     flash("✅ เข้าสู่ระบบสำเร็จ", "success")
                     return redirect(url_for("home"))
                 else:

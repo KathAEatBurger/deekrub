@@ -90,13 +90,13 @@ a.home-btn:hover {
     <input type="hidden" name="old_report_id" value="{{ report.report_id }}">
     
     <label for="test_date">วันที่ทดสอบ</label>
-    <input type="date" name="test_date" id="test_date" value="{{ report.test_date or '' }}" required>
+    <input type="date" name="test_date" id="test_date" value="{{ report.test_date }}" readonly>
 
     <label for="tested_by">ผู้ทดสอบ</label>
-    <input type="text" name="tested_by" id="tested_by" value="{{ report.tested_by or '' }}" required>
+    <input type="text" name="tested_by" id="tested_by" value="{{ report.tested_by }}" readonly>
 
     <label for="result_data">ผลการทดสอบ</label>
-    <textarea name="result_data" id="result_data" placeholder="กรอกผลการทดสอบ">{{ report.result_data or '' }}</textarea>
+    <textarea name="result_data" id="result_data" readonly style="background-color: #f0f0f0; white-space: pre-wrap;">{{ report.result_data or '' }}</textarea>
 
     <label for="remarks">หมายเหตุ</label>
     <textarea name="remarks" id="remarks" placeholder="กรอกหมายเหตุ">{{ report.remarks or '' }}</textarea>
@@ -105,6 +105,9 @@ a.home-btn:hover {
     <input type="text" name="status" id="status" value="{{ report.status or '' }}" readonly>
 
     <button type="submit">💾 บันทึกการแก้ไข</button>
+
+    <input type="hidden" name="test_date" value="{{ report.test_date }}">
+    <input type="hidden" name="tested_by" value="{{ report.tested_by }}">
 </form>
 
 {% if report.status == 'pending' %}
