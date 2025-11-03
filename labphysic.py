@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, session, redirect, url_for, flash, request
 from supabase_client import get_products, insert_sample_prep
 from functools import wraps
+import datetime
+import uuid
 
 physic_bp = Blueprint('physic', __name__, url_prefix='/lab/physic')
 
@@ -20,9 +22,9 @@ def physic_home():
     products = [p for p in get_products() if p.get("lab_type") == "physic"]
 
     if request.method == "POST":
-        prep_id = request.form.get("prep_id")
-        prepared_by = request.form.get("prepared_by")
-        date = request.form.get("date")
+        prep_id = str(uuid.uuid4())
+        prepared_by = session.get("user")
+        date = datetime.date.today().isoformat()
         selected_products = request.form.getlist("selected_products")
 
         if not prep_id or not prepared_by or not date:
