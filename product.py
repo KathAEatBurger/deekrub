@@ -107,7 +107,7 @@ def confirm_item():
 # ✅ ส่งสินค้าไปแลป
 @product_bp.route('/send', methods=['POST'])
 @login_required
-@role_required(["QA", "Lab", "Team Lead"])
+@role_required(["Lab", "Team Lead"])
 def send_to_lab():
     selected_codes = request.form.getlist('selected_items')
     selected_lab_no = request.form.get('lab_no')

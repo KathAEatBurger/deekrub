@@ -23,6 +23,7 @@ form {
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
 }
 label {
     font-weight: 600;
@@ -55,6 +56,12 @@ button {
 }
 button:hover {
     background-color: #1e8449;
+}
+.approve-btn {
+    background-color: #f39c12;
+}
+.approve-btn:hover {
+    background-color: #e67e22;
 }
 a.home-btn {
     display: inline-block;
@@ -99,6 +106,14 @@ a.home-btn:hover {
 
     <button type="submit">💾 บันทึกการแก้ไข</button>
 </form>
+
+{% if report.status == 'pending' %}
+<form action="{{ url_for('report.approve_report', report_id=report.report_id) }}" method="post" style="text-align:center;">
+    <button type="submit" class="approve-btn" onclick="return confirm('ยืนยันการอนุมัติรายงาน {{ report.report_id }} หรือไม่?');">
+        ✅ Approve
+    </button>
+</form>
+{% endif %}
 
 </body>
 </html>
