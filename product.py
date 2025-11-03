@@ -2,6 +2,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from supabase_client import insert_product, get_products, update_product_lab_info
 from functools import wraps
+import uuid
 
 product_bp = Blueprint('product', __name__, url_prefix='/product')
 
@@ -54,13 +55,13 @@ def add_item():
         product_data = {
             'product_id': request.form.get('product_id'),
             'sample_date': request.form.get('sample_date'),
-            'owner': empty_to_none(request.form.get('owner')),
+            'owner': session["user"],
             'product_spec': empty_to_none(request.form.get('product_spec')),
             'lot': empty_to_none(request.form.get('lot')),
             'document_date': empty_to_none(request.form.get('document_date')),
             'item': empty_to_none(request.form.get('item')),
             'lab_no': empty_to_none(request.form.get('lab_no')),
-            'project_code': empty_to_none(request.form.get('project_code')),
+            'project_code': str(uuid.uuid4()),
             'sent': False
         }
 
@@ -110,9 +111,15 @@ def confirm_item():
 @role_required(["Lab", "Team Lead"])
 def send_to_lab():
     selected_codes = request.form.getlist('selected_items')
-    selected_lab_no = request.form.get('lab_no')
+    if request.form.get('lab_choice') == "chem":
+        selected_lab_no = "L02"
+    elif request.form.get('lab_choice') == "microbio":
+        selected_lab_no = "L01"
+    elif request.form.get('lab_choice') == "physic":
+        selected_lab_no = "L03"
+    selected_lab_no = request.form.get('lab_choice')
     selected_lab_type = request.form.get('lab_choice')
-    selected_lab_org = request.form.get('lab_org')
+    selected_lab_org = str(uuid.uuid4())
 
     if not selected_codes or not selected_lab_no or not selected_lab_type or not selected_lab_org:
         flash("⚠️ กรุณาเลือกสินค้าและกรอกข้อมูลแลปครบถ้วนก่อนส่ง")
