@@ -27,15 +27,6 @@
     <a href="/lab" class="home-btn">← กลับหน้า Lab</a>
 
     <form method="POST">
-        <div class="form-group">
-            <label for="prep_id">Prep ID</label>
-            <input type="text" name="prep_id" id="prep_id" required>
-            <label for="prepared_by">Prepared By</label>
-            <input type="text" name="prepared_by" id="prepared_by" required>
-            <label for="date">Date</label>
-            <input type="date" name="date" id="date" required>
-        </div>
-
         {% if products %}
             <table>
                 <thead>
@@ -57,7 +48,7 @@
                 {% for p in products %}
                     {% if p.lab_type == 'microbio' %}
                     <tr>
-                        <td><input type="checkbox" name="selected_products" value="{{ p.product_id }}"></td>
+                        <td><input type="radio" name="selected_products" value="{{ p.product_id }}"></td>
                         <td>{{ p.product_id }}</td>
                         <td>{{ p.sample_date or '-' }}</td>
                         <td>{{ p.owner or '-' }}</td>
